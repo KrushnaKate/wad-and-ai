@@ -122,4 +122,4 @@ document.getElementById('clearButton').addEventListener('click', function(){
 });
 
 
-//to run: npm server.js
+//to run: node server.js
