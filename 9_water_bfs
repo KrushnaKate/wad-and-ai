@@ -1,0 +1,48 @@
+from collections import deque
+
+# Define the BFS algorithm
+def bfs(x, y, z):
+    # Check if the goal is achievable
+    if z > max(x, y):
+        return -1
+    
+    # Visited set to keep track of visited states (x, y)
+    visited = set()
+    
+    # Queue to store states in the format (amount in jug x, amount in jug y)
+    queue = deque([(0, 0)])  # Start with both jugs empty
+    visited.add((0, 0))
+    
+    # Define all possible moves: (fill, empty, pour from x to y, pour from y to x)
+    while queue:
+        cur_x, cur_y = queue.popleft()
+        
+        # If either jug contains the target amount, return the solution
+        if cur_x == z or cur_y == z:
+            return True
+        
+        # Possible next states
+        next_states = [
+            (x, cur_y),  # Fill jug x
+            (cur_x, y),  # Fill jug y
+            (0, cur_y),  # Empty jug x
+            (cur_x, 0),  # Empty jug y
+            (cur_x - min(cur_x, y - cur_y), cur_y + min(cur_x, y - cur_y)),  # Pour from x to y
+            (cur_x + min(cur_y, x - cur_x), cur_y - min(cur_y, x - cur_x))   # Pour from y to x
+        ]
+        
+        # Explore each next state
+        for state in next_states:
+            if state not in visited:
+                visited.add(state)
+                queue.append(state)
+    
+    # If no solution found
+    return False
+
+# Example usage
+x, y, z = 4, 3, 2  # Jug capacities and target amount
+if bfs(x, y, z):
+    print(f"Solution found to measure {z} liters.")
+else:
+    print(f"No solution possible to measure {z} liters.")
