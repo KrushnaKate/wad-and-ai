@@ -28,14 +28,12 @@ def selection_sort(arr):
 # Insertion Sort Algorithm
 def insertion_sort(arr):
     for i in range(1, len(arr)):
-        key = arr[i]  # The element to be inserted
-        # Reasoning: Compare key with elements to the left and shift larger elements to the right
-        for j in range(i-1, -1, -1):
-            if arr[j] > key:
-                arr[j+1] = arr[j]  # Shift element to the right
-            else:
-                arr[j+1] = key  # Insert the key at the correct position
-                break  # Break out of the loop once the correct position is found
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key  # Insert the key at the correct position
     return arr
 
 def quicksort(arr):
@@ -75,4 +73,3 @@ if __name__ == "__main__":
     print("Before:", arr)
     sorted_arr = quicksort(arr.copy())
     print("After:", sorted_arr)
-    
