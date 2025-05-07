@@ -38,19 +38,15 @@ def insertion_sort(arr):
                 break  # Break out of the loop once the correct position is found
     return arr
 
-# QuickSort Algorithm
 def quicksort(arr):
-    # Base case: If the list is empty or has one element, it's already sorted
     if len(arr) <= 1:
-        return arr
-    else:
-        # Choose a pivot element (Here, we choose the last element as pivot)
-        pivot = arr[-1]
-        left = [x for x in arr[:-1] if x <= pivot]  # Elements less than or equal to pivot
-        right = [x for x in arr[:-1] if x > pivot]  # Elements greater than pivot
-        
-        # Recursively apply QuickSort on the left and right sub-arrays, then concatenate
-        return quicksort(left) + [pivot] + quicksort(right)
+        return arr  # Base case: already sorted
+    pivot = arr[len(arr) // 2]  # Choose the middle element as pivot
+    left = [x for x in arr if x < pivot]     # Elements less than pivot
+    middle = [x for x in arr if x == pivot]  # Elements equal to pivot
+    right = [x for x in arr if x > pivot]    # Elements greater than pivot
+    return quicksort(left) + middle + quicksort(right)
+
 
 # Example usage:
 if __name__ == "__main__":
